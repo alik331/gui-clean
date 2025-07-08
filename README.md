@@ -2,33 +2,6 @@
 
 A powerful, browser-based 3D CAD application that enables users to create and manipulate 3D objects with AI assistance. Built with React, TypeScript, Babylon.js, and powered by OpenAI's API through an MCP (Model Context Protocol) server.
 
-## ✨ Features
-
-### 🎯 3D Object Creation
-- **Primitives**: Cube, Sphere, Cylinder, Plane, Torus, Cone
-- **Housing Elements**: Basic House, Room, Hallway, Flat Roof, Pitched Roof
-- **Transform Tools**: Select, Move, Rotate, Scale with interactive gizmos
-- **Material System**: Full RGB color picker with preset colors and hex input
-
-### 🤖 AI-Powered Scene Manipulation
-- Natural language commands for object creation and manipulation
-- AI sidebar for intuitive 3D scene control
-- OpenAI API integration for intelligent scene understanding
-- MCP Server for Babylon.js actions
-
-### 🛠️ Professional Tools
-- **Selection Modes**: Single and multi-select with visual feedback
-- **Snap to Grid**: Precision placement with configurable grid size
-- **Camera Controls**: Front, Back, Left, Right, Top, Bottom, and Home views
-- **Display Options**: Wireframe mode, grid visualization, object isolation
-- **Precision Tools**: Focus selected, align to grid, reset transforms
-
-### 🎨 Advanced UI/UX
-- Modern dropdown-based toolbar interface
-- Real-time status indicators (mode, grid, selection count)
-- Keyboard shortcuts for efficient workflow
-- Responsive design optimized for 3D work
-
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -62,6 +35,13 @@ A powerful, browser-based 3D CAD application that enables users to create and ma
 When you first launch the application, you'll be prompted to enter your OpenAI API key. This enables the AI-powered scene manipulation features.
 
 > **Note**: Your API key is stored locally in your browser and never sent to external servers.
+
+## ✨ Features
+
+**🎯 3D Creation**: Primitives (cube, sphere, cylinder, etc.) and housing elements with full transform controls  
+**🤖 AI Integration**: Natural language commands for scene manipulation via OpenAI API  
+**🛠️ Professional Tools**: Multi-select, snap-to-grid, camera controls, wireframe mode  
+**🎨 Modern UI**: Dropdown toolbar, real-time status, keyboard shortcuts, responsive design  
 
 ## 🏗️ Architecture
 
