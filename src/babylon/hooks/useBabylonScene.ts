@@ -1,5 +1,5 @@
 import { useEffect, useRef, useMemo, useState } from 'react'
-import { Vector3, Color3, PickingInfo, Matrix } from 'babylonjs'
+import { Vector3, Color3, PickingInfo } from 'babylonjs'
 import { SceneManager } from '../sceneManager'
 import { useSceneStore } from '../../state/sceneStore'
 import { useGizmoManager } from '../gizmoManager'
@@ -7,7 +7,7 @@ import type { SceneObject } from '../../types/types'
 
 // Custom hook to get the previous value of a prop or state
 function usePrevious<T>(value: T): T | undefined {
-  const ref = useRef<T>()
+  const ref = useRef<T | undefined>(undefined)
   useEffect(() => {
     ref.current = value
   })
@@ -26,7 +26,6 @@ export const useBabylonScene = (canvasRef: React.RefObject<HTMLCanvasElement | n
     sceneObjects,
     selectedObjectId,
     selectedObjectIds,
-    transformMode,
     wireframeMode,
     snapToGrid,
     gridSize,
@@ -43,10 +42,8 @@ export const useBabylonScene = (canvasRef: React.RefObject<HTMLCanvasElement | n
     setSelectedObjectId,
     setSelectedObjectIds,
     setHoveredObjectId,
-    updateObject,
     setMultiSelectPivot,
     setMultiSelectInitialStates,
-    setGridMesh,
     clearSelection
   } = store
 
@@ -172,7 +169,7 @@ export const useBabylonScene = (canvasRef: React.RefObject<HTMLCanvasElement | n
   // Handle object click events
   const handleObjectClick = (pickInfo: PickingInfo, isCtrlHeld: boolean = false) => {
     // Get latest state directly from the store to prevent stale closures
-    const state = useSceneStore.getState()
+    const currentState = useSceneStore.getState()
     
     console.log('🎯 [handleObjectClick] Received pick info:', {
       hit: pickInfo.hit,
@@ -193,16 +190,16 @@ export const useBabylonScene = (canvasRef: React.RefObject<HTMLCanvasElement | n
 
       if (clickedObject && clickedObject.type !== 'ground') {
         // Check if object is locked
-        if (state.objectLocked[clickedObject.id]) {
+        if (currentState.objectLocked[clickedObject.id]) {
           console.log(`🔒 [handleObjectClick] Object is locked: ${clickedObject.id}`)
           return
         }
 
-        if (state.multiSelectMode || isCtrlHeld) {
+        if (currentState.multiSelectMode || isCtrlHeld) {
           // Multi-select mode
-          const newIds = state.selectedObjectIds.includes(clickedObject.id)
-            ? state.selectedObjectIds.filter(id => id !== clickedObject.id)
-            : [...state.selectedObjectIds, clickedObject.id]
+          const newIds = currentState.selectedObjectIds.includes(clickedObject.id)
+            ? currentState.selectedObjectIds.filter(id => id !== clickedObject.id)
+            : [...currentState.selectedObjectIds, clickedObject.id]
           console.log('🎯 [handleObjectClick] Multi-select mode:', {
             objectId: clickedObject.id,
             newSelection: newIds
@@ -218,7 +215,7 @@ export const useBabylonScene = (canvasRef: React.RefObject<HTMLCanvasElement | n
           setSelectedObjectIds([])
         }
         
-        state.setActiveDropdown(null)
+        currentState.setActiveDropdown(null)
       } else {
         // If the ground or an unmanaged mesh is clicked, deselect everything
         console.log('🎯 [handleObjectClick] Clicked ground or unmanaged mesh, clearing selection')
@@ -233,9 +230,6 @@ export const useBabylonScene = (canvasRef: React.RefObject<HTMLCanvasElement | n
 
   // Handle object hover events
   const handleObjectHover = (pickInfo: PickingInfo) => {
-    // Get latest state directly from the store to prevent stale closures
-    const state = useSceneStore.getState()
-
     if (pickInfo.hit && pickInfo.pickedMesh) {
       const hoveredObject = sceneObjectsRef.current.find(obj => obj.id === pickInfo.pickedMesh?.name)
       if (hoveredObject && hoveredObject.type !== 'ground') {
@@ -335,13 +329,12 @@ export const useBabylonScene = (canvasRef: React.RefObject<HTMLCanvasElement | n
     if (!sceneManagerRef.current || !sceneInitialized) return
 
     const sceneManager = sceneManagerRef.current
-    const state = useSceneStore.getState()
 
     // Reset all non-ground objects to a default state
-    state.sceneObjects.forEach(obj => {
+    sceneObjects.forEach(obj => {
       if (obj.type !== 'ground') {
         // Check if object is locked
-        if (state.objectLocked[obj.id]) {
+        if (objectLocked[obj.id]) {
           sceneManager.setMeshEmissive(obj.id, new Color3(0.8, 0.4, 0.4)) // Red tint for locked objects
         } else {
           // Subtle glow to indicate all objects are interactive
@@ -351,19 +344,19 @@ export const useBabylonScene = (canvasRef: React.RefObject<HTMLCanvasElement | n
     })
 
     // Add hover effect
-    if (state.hoveredObjectId && state.hoveredObjectId !== state.selectedObjectId && !state.selectedObjectIds.includes(state.hoveredObjectId)) {
-      if (!state.objectLocked[state.hoveredObjectId]) {
-        sceneManager.setMeshEmissive(state.hoveredObjectId, new Color3(0.3, 0.6, 0.9)) // Blue hover
+    if (hoveredObjectId && hoveredObjectId !== selectedObjectId && !selectedObjectIds.includes(hoveredObjectId)) {
+      if (!objectLocked[hoveredObjectId]) {
+        sceneManager.setMeshEmissive(hoveredObjectId, new Color3(0.3, 0.6, 0.9)) // Blue hover
       }
     }
 
     // Add strong highlight to the single selected object
-    if (state.selectedObjectId) {
-      sceneManager.setMeshEmissive(state.selectedObjectId, new Color3(0.6, 1.0, 1.0)) // Bright cyan selection
+    if (selectedObjectId) {
+      sceneManager.setMeshEmissive(selectedObjectId, new Color3(0.6, 1.0, 1.0)) // Bright cyan selection
     }
 
     // Add highlight to multi-selected objects
-    state.selectedObjectIds.forEach(objectId => {
+    selectedObjectIds.forEach(objectId => {
       sceneManager.setMeshEmissive(objectId, new Color3(1.0, 0.8, 0.2)) // Orange for multi-selection
     })
   }, [selectedObjectId, selectedObjectIds, hoveredObjectId, sceneObjects, objectLocked, sceneInitialized])

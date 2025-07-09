@@ -13,7 +13,6 @@ export const PropertiesPanel: React.FC = () => {
     selectedControlPointIndex,
     updateObject,
     setTessellationQuality,
-    setSelectedControlPointIndex,
     getSelectedObject,
     getSelectedObjects,
     hasSelection,

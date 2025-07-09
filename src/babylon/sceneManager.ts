@@ -12,7 +12,7 @@ import {
   PointerEventTypes,
   PickingInfo
 } from 'babylonjs'
-import type { SceneObject, PrimitiveType, TransformMode } from '../types/types'
+import type { SceneObject, TransformMode } from '../types/types'
 import { createHousingMesh } from './housingFactory'
 
 export class SceneManager {

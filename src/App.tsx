@@ -1,5 +1,5 @@
 import { useEffect, useRef, useMemo } from 'react'
-import { Vector3, StandardMaterial, Color3, Mesh, Engine, ArcRotateCamera, GizmoManager, PickingInfo, Matrix, HemisphericLight } from 'babylonjs';
+import { Vector3, StandardMaterial } from 'babylonjs';
 import './App.css'
 
 // Import material presets constant (value)
@@ -15,7 +15,7 @@ import { AISidebar } from './components/sidebar/AISidebar'
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts'
 
 import { useSceneStore } from './state/sceneStore'
-import type { SceneObject, PrimitiveType, TransformMode, ControlPointVisualization } from './types/types'
+import type { SceneObject, PrimitiveType } from './types/types'
 
 function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -35,60 +35,36 @@ function App() {
     selectedObjectIds,
     transformMode,
     currentColor,
-    isLoading,
     apiKey,
     showApiKeyInput,
-    responseLog,
     wireframeMode,
-    hoveredObjectId,
     multiSelectMode,
     snapToGrid,
     gridSize,
     objectLocked,
     showGrid,
-    objectVisibility,
-    multiSelectPivot,
-    gridMesh,
-    multiSelectInitialStates,
-    textInput,
-    sidebarCollapsed,
     activeDropdown,
 
     // Actions
-    setSceneObjects,
     setSelectedObjectId,
     setSelectedObjectIds,
     setTransformMode,
     setCurrentColor,
-    setIsLoading,
     setApiKey,
     setShowApiKeyInput,
-    addToResponseLog,
     setWireframeMode,
     setShowGrid,
-    setHoveredObjectId,
     setMultiSelectMode,
     setSnapToGrid,
     setGridSize,
     setObjectVisibility,
-    setObjectLocked,
-    setMultiSelectPivot,
-    setGridMesh,
-    setMultiSelectInitialStates,
-    setTextInput,
-    setSidebarCollapsed,
     setActiveDropdown,
-    setResponseLog,
-    clearSelection,
-    clearAllObjects,
     updateObject,
     addObject,
     removeObject,
     
     // Getters from store (for checking object status)
     hasSelection,
-    isObjectLocked,
-    isObjectVisible,
   } = useSceneStore();
   // --- END: Reading state from the Zustand store ---
 
@@ -102,14 +78,7 @@ function App() {
    */
   // Scene objects are now managed by the useBabylonScene hook
 
-  // The application no longer supports NURBS control-points.  We define inert
-  // placeholders so that the few remaining references compile but have no
-  // runtime effect.
-  const selectedControlPointMesh: Mesh | null = null
-  const selectedControlPointIndex: number | null = null
-  // No-op stubs replacing the old setters
-  const setSelectedControlPointMesh = (_?: any) => {}
-  const setSelectedControlPointIndex = (_?: any) => {}
+  // The application no longer supports NURBS control-points - removed unused variables
 
   // OpenAI client initialization is now handled by the AI service
 
@@ -201,39 +170,7 @@ function App() {
     setActiveDropdown(null);
   }
 
-  const duplicateObject = () => {
-    if (!selectedObject || !sceneInitialized) return
-
-    const newId = `${selectedObject.type}-${Date.now()}`
-    
-    console.log('Duplicating object:', selectedObject.id, 'as', newId)
-
-    const newObj: SceneObject = {
-      id: newId,
-      type: selectedObject.type,
-      position: selectedObject.position.clone().add(new Vector3(2, 0, 0)),
-      scale: selectedObject.scale.clone(),
-      rotation: selectedObject.rotation.clone(),
-      color: selectedObject.color,
-      isNurbs: selectedObject.isNurbs,
-      verbData: selectedObject.isNurbs ? selectedObject.verbData : undefined
-    }
-
-    addObject(newObj);
-    setSelectedObjectId(newId);
-    setActiveDropdown(null);
-  }
-
-  const deleteSelectedObject = () => {
-    if (!selectedObject) return
-
-    console.log('🗑️ Deleting object:', selectedObject.id)
-    
-    removeObject(selectedObject.id)
-    setSelectedObjectId(null)
-    setActiveDropdown(null)
-    console.log('✅ Deleted object')
-  }
+  // Unused functions removed - duplicateObject and deleteSelectedObject
 
 
   // TODO: fix store useage here

@@ -8,13 +8,13 @@ import {
   Quaternion
 } from 'babylonjs'
 import { useSceneStore } from '../state/sceneStore'
-import type { TransformMode, MultiSelectInitialState } from '../types/types'
+import type { TransformMode } from '../types/types'
 
 export class GizmoController {
   private gizmoManager: GizmoManager | null = null
   private scene: Scene | null = null
   private gizmoObservers: { observable: any, observer: any }[] = []
-  private currentTargetMesh: Mesh | null = null
+  // currentTargetMesh removed as it was unused
   private onDragEndCallback?: (position: Vector3, rotation: Vector3, scale: Vector3) => void
 
   constructor(scene: Scene) {
@@ -59,7 +59,6 @@ export class GizmoController {
     // Attach to target mesh or detach
     if (targetMesh) {
       this.gizmoManager.attachToMesh(targetMesh)
-      this.currentTargetMesh = targetMesh
       
       // Enable appropriate gizmo based on transform mode
       switch (transformMode) {
@@ -81,7 +80,6 @@ export class GizmoController {
       this.setupGizmoObservers()
     } else {
       this.gizmoManager.attachToMesh(null)
-      this.currentTargetMesh = null
     }
   }
 
@@ -174,7 +172,7 @@ export class GizmoController {
       this.gizmoManager.dispose()
       this.gizmoManager = null
     }
-    this.currentTargetMesh = null
+    // currentTargetMesh removed
     this.onDragEndCallback = undefined
   }
 }

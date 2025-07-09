@@ -1,4 +1,4 @@
-import { Scene, MeshBuilder, StandardMaterial, Color3, Mesh, Vector3, Path3D, Matrix, CSG, TransformNode } from 'babylonjs';
+import { Scene, MeshBuilder, StandardMaterial, Color3, Mesh, Vector3, CSG, TransformNode } from 'babylonjs';
 import type { MeshCreationOptions } from './objectFactory';
 
 /**

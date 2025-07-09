@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
-import { Vector3, Mesh } from 'babylonjs'
+import { Mesh } from 'babylonjs'
 import type { 
     TransformMode, 
     PrimitiveType, 
