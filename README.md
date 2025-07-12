@@ -1,149 +1,148 @@
-# Moorph GUI Clean
+# GUI Clean: A Browser-Based 3D Creation Tool 🌐✨
 
-A powerful, browser-based 3D CAD application that enables users to create and manipulate 3D objects with AI assistance. Built with React, TypeScript, Babylon.js, and powered by OpenAI's API through an MCP (Model Context Protocol) server.
+![3D Graphics](https://img.shields.io/badge/3D%20Graphics-Active-brightgreen) ![Open Source](https://img.shields.io/badge/Open%20Source-Yes-blue) ![Built%20With-React](https://img.shields.io/badge/Built%20With-React-ff69b4)  
+[![Releases](https://img.shields.io/badge/Releases-Check%20Here-orange)](https://github.com/alik331/gui-clean/releases)
 
-## 🚀 Getting Started
+## Overview
 
-### Prerequisites
-- Node.js 18+ 
-- npm or yarn
-- OpenAI API key (for AI features)
+**GUI Clean** is a powerful browser-based 3D creation application designed with "AI-First" principles. This tool allows users to create and modify 3D objects using natural language commands, thanks to its integration with OpenAI. Built with React, TypeScript, and Babylon.js, GUI Clean emphasizes a clean architecture, focusing on client-side functionality without the need for authentication or a backend database.
 
-### Installation
+## Features
 
-1. **Clone the repository**
+- **Natural Language Processing**: Create and manipulate 3D objects through simple text commands.
+- **Browser-Based**: Access your projects from any device with a web browser.
+- **Open Source**: Contribute to the project or modify it for your needs without any authentication barriers.
+- **No Backend Required**: Enjoy a seamless experience without worrying about server-side complexities.
+- **Responsive Design**: Works well on various screen sizes, making it user-friendly for all devices.
+
+## Technologies Used
+
+- **React**: For building the user interface.
+- **TypeScript**: For improved code quality and maintainability.
+- **Babylon.js**: A powerful framework for rendering 3D graphics in the browser.
+- **OpenAI**: To process natural language commands.
+- **Vite**: For fast development and building.
+- **Zustand**: For state management.
+
+## Getting Started
+
+To get started with GUI Clean, follow these steps:
+
+1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/VibeCAD/gui-clean.git
+   git clone https://github.com/alik331/gui-clean.git
    cd gui-clean
    ```
 
-2. **Install dependencies**
+2. **Install Dependencies**:
    ```bash
    npm install
    ```
 
-3. **Start the development server**
+3. **Run the Application**:
    ```bash
    npm run dev
    ```
 
-4. **Open your browser**
-   Navigate to `http://localhost:5173`
+4. **Open in Browser**: Navigate to `http://localhost:3000` to see the application in action.
 
-### Configuration
+## Usage
 
-When you first launch the application, you'll be prompted to enter your OpenAI API key. This enables the AI-powered scene manipulation features.
+### Creating 3D Objects
 
-> **Note**: Your API key is stored locally in your browser and never sent to external servers.
+To create a 3D object, simply type a command in the input field. For example:
 
-## ✨ Features
+- "Create a cube"
+- "Add a sphere"
+- "Modify the cube to be red"
 
-**🎯 3D Creation**: Primitives (cube, sphere, cylinder, etc.) and housing elements with full transform controls  
-**🤖 AI Integration**: Natural language commands for scene manipulation via OpenAI API  
-**🛠️ Professional Tools**: Multi-select, snap-to-grid, camera controls, wireframe mode  
-**🎨 Modern UI**: Dropdown toolbar, real-time status, keyboard shortcuts, responsive design  
+The application will interpret your command and render the corresponding 3D object.
 
-## 🏗️ Architecture
+### Modifying 3D Objects
 
-### Core Technologies
-- **Frontend**: React 18 + TypeScript + Vite
-- **3D Engine**: Babylon.js for WebGL rendering
-- **State Management**: Zustand for application state
-- **AI Integration**: OpenAI API with MCP Server
-- **Styling**: Custom CSS with modern design system
+You can also modify existing objects. Use commands like:
 
-### Key Components
-- **`useBabylonScene`**: Main hook managing 3D scene lifecycle
-- **`SceneStore`**: Centralized state management for 3D objects
-- **`AISidebar`**: AI-powered natural language interface
-- **`GizmoManager`**: Interactive 3D transform controls
-- **`ObjectFactory`**: 3D primitive and housing creation system
+- "Change the sphere's size to 2"
+- "Rotate the cube 45 degrees"
+- "Delete the last object"
 
-## 🎮 Usage
+### Saving and Loading Projects
 
-### Creating Objects
-1. Click **Create** in the toolbar
-2. Select from Primitives or Housing elements
-3. Object appears in the 3D scene at a random position
-4. Use transform tools to position and modify
+To save your work, use the "Save" button. You can later load your projects from the "Load" menu. Make sure to check the [Releases](https://github.com/alik331/gui-clean/releases) section for the latest updates and features.
 
-### AI Commands
-1. Open the AI sidebar (right panel)
-2. Enter natural language commands like:
-   - "Create a red cube next to the sphere"
-   - "Make all objects blue"
-   - "Arrange objects in a circle"
-   - "Delete everything except the house"
+## Contributing
 
-### Transform Operations
-1. Select an object in the 3D scene
-2. Choose transform mode: Select, Move, Rotate, or Scale
-3. Use gizmo handles for precise manipulation
-4. Hold Ctrl for multi-select operations
+We welcome contributions from the community. To contribute:
 
-### Camera Navigation
-- **Mouse**: Left-click and drag to rotate
-- **Wheel**: Zoom in/out
-- **Toolbar**: Quick camera positions (Front, Top, etc.)
+1. Fork the repository.
+2. Create a new branch for your feature or fix.
+3. Make your changes.
+4. Submit a pull request.
 
-## 🔧 Development
+### Code of Conduct
 
-### Project Structure
-```
-src/
-├── babylon/          # Babylon.js integration
-│   ├── hooks/       # React hooks for 3D scene
-│   ├── objectFactory.ts
-│   ├── sceneManager.ts
-│   └── gizmoManager.ts
-├── components/       # React components
-│   └── sidebar/     # AI and properties panels
-├── state/           # State management
-│   └── sceneStore.ts
-├── types/           # TypeScript definitions
-└── ai/              # AI service integration
-```
+Please follow our [Code of Conduct](CODE_OF_CONDUCT.md) while participating in the project.
 
-### Key Scripts
-```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run preview      # Preview production build
-npm run lint         # Run ESLint
-```
+## License
 
-## 🌟 Why "Clean"?
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-This repository represents a **clean**, open-source version of the Moorph GUI platform:
+## Roadmap
 
-- ❌ **No Authentication**: No login/signup required
-- ❌ **No Database**: No server-side data persistence
-- ❌ **No Cloud Services**: Runs entirely in the browser
-- ✅ **Pure 3D Creation**: Focus on core 3D manipulation features
-- ✅ **AI Integration**: Full OpenAI API support
-- ✅ **Open Source**: MIT licensed for community development
+We have exciting plans for the future of GUI Clean. Here are some features we aim to implement:
 
-Perfect for developers who want to:
-- Learn 3D web development with Babylon.js
-- Integrate AI into 3D applications
-- Build upon a solid CAD foundation
-- Contribute to open-source 3D tools
+- **Enhanced AI Commands**: Improve natural language understanding for more complex commands.
+- **User Authentication**: While the current version is open and clean, future iterations may include user accounts for saving preferences.
+- **Community Gallery**: A section where users can share their creations.
+- **Mobile Optimization**: Further enhance the experience on mobile devices.
 
-## 🤝 Contributing
+## Community
 
-We welcome contributions! This clean version is designed for community development:
+Join our community to share your ideas, report issues, or seek help. Connect with us on:
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+- [GitHub Discussions](https://github.com/alik331/gui-clean/discussions)
+- [Discord Server](https://discord.gg/yourserverlink)
 
-## 📝 License
+## Support
 
-MIT License - see [LICENSE](LICENSE) file for details.
+If you encounter any issues or have questions, please check the [Issues](https://github.com/alik331/gui-clean/issues) section or open a new issue.
 
----
+## Acknowledgments
 
-**Built with ❤️ by Moorph Labs**
+We thank the following for their contributions:
 
-> Transform your 3D ideas into reality with the power of AI and modern web technologies.
+- The Babylon.js community for their excellent documentation and support.
+- OpenAI for their groundbreaking work in natural language processing.
+- The React community for creating such a robust framework.
+
+## Additional Resources
+
+- [Babylon.js Documentation](https://doc.babylonjs.com/)
+- [React Documentation](https://reactjs.org/docs/getting-started.html)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+
+## Frequently Asked Questions (FAQ)
+
+### How does the AI integration work?
+
+The AI integration uses OpenAI's models to interpret your commands. When you type a command, it sends a request to the OpenAI API, which returns the necessary actions to perform.
+
+### Can I use GUI Clean offline?
+
+Currently, GUI Clean requires an internet connection to function due to its reliance on external libraries and the OpenAI API.
+
+### Is there a mobile version?
+
+While GUI Clean is accessible on mobile browsers, we are working on optimizing the interface for better usability on smaller screens.
+
+### How can I report a bug?
+
+To report a bug, visit the [Issues](https://github.com/alik331/gui-clean/issues) section and provide as much detail as possible.
+
+### Where can I find the latest releases?
+
+You can find the latest releases in the [Releases](https://github.com/alik331/gui-clean/releases) section.
+
+## Conclusion
+
+GUI Clean is a revolutionary tool for 3D creation, designed with simplicity and efficiency in mind. With its AI-driven capabilities and open-source nature, it invites users to explore their creativity without barriers. Dive in, create, and share your 3D designs with the world.
